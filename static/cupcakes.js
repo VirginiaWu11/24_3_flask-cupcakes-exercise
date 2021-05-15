@@ -6,9 +6,16 @@ function generateCupcakeHTML(cupcake) {
       <li> ${cupcake.flavor} / ${cupcake.size} / ${cupcake.rating}
       <button class="delete-button">Delete</button>
       </li>
-      <img src="${cupecake.image}"
+      <img src="${cupcake.image}", height="200px"
       </div>
       `;
+}
+async function showInitialCupcakes() {
+  const response = await axios.get(`/api/cupcakes`);
+  for (let cupcakeData of response.data.cupcakes) {
+    let newCupcake = $(generateCupcakeHTML(cupcakeData));
+    $("#cupcakes-list").append(newCupcake);
+  }
 }
 
 async function handleSubmit(evt) {
@@ -26,4 +33,9 @@ async function handleSubmit(evt) {
     image,
   });
   console.log(newCupcakeResponse);
+
+  let newCupcake = $(generateCupcakeHTML(newCupcakeResponse.data.cupcake));
+  $("#cupcakes-list").append(newCupcake);
+  $("#new-cupcake").trigger("reset");
 }
+$(showInitialCupcakes);
