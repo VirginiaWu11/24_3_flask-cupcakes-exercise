@@ -25,14 +25,12 @@ async function handleSubmit(evt) {
   let rating = $("#rating").val();
   let size = $("#size").val();
   let image = $("#image").val();
-  console.log(size);
   const newCupcakeResponse = await axios.post("api/cupcakes", {
     flavor,
     rating,
     size,
     image,
   });
-  console.log(newCupcakeResponse);
 
   let newCupcake = $(generateCupcakeHTML(newCupcakeResponse.data.cupcake));
   $("#cupcakes-list").append(newCupcake);
