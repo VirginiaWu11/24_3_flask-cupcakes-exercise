@@ -52,3 +52,8 @@ def delete_cupcake(id):
     return jsonify(message="deleted")
 
 # id flavor size rating image
+
+@app.route('/')
+def show_home_page():
+    cupcakes = Cupcake.query.all()
+    return render_template('home.html',cupcakes=cupcakes)
